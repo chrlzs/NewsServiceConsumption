@@ -1,0 +1,74 @@
+﻿@using Covid.Models
+@{
+    ViewData["Title"] = "Home Page";
+
+    var i = 1;
+
+    List<NewsItemViewModel> articleList = (List<NewsItemViewModel>)ViewData["News"];
+    NewsItemViewModel featuredNewsItem = articleList[0];
+    var articleCount = articleList.Count;
+}
+
+<div class="hero is-halfheight has-background is-bold is-dark">
+    <img class="hero-background is-transparent" src="@featuredNewsItem.Image.Thumbnail.ContentUrl?" alt="@featuredNewsItem.Name" />
+    <div class="hero-body">
+        <div class="container">
+            @if (ViewBag.Message == null)
+            {
+            <h1 class="title">
+                @ViewBag.Message
+            </h1>
+            }
+            <h1 class="title">
+                @featuredNewsItem.DatePublished.ToString("MM/dd/yyyy") : @featuredNewsItem.Name
+            </h1>
+            <h3 class="subtitle">
+                @featuredNewsItem.Description
+            </h3>
+            <a href="@featuredNewsItem.AmpUrl" target="_blank" class="button">Read More</a>
+            <div class="level-right">
+                <p class="level-item"><strong>@featuredNewsItem.Category</strong></p>
+                <p class="level-item">@featuredNewsItem.Provider.First().Name</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container is-widescreen is-fluid">
+    <main role="main">
+       <section class="section">
+            <div class="container">
+                <h1 class="title">Latest News</h1>
+                <div class="tile is-ancestor">
+                    @foreach (NewsItemViewModel item in articleList)
+                    {
+                        <div formatter sequence="@i">
+                            <div class="tile is-parent">
+                                <article class="tile is-child box">
+                                    <h3 class="title">
+                                        <bold>@item.Name</bold>
+                                    </h3>
+                                    <p class="subtitle">@item.DatePublished.ToString("MM/dd/yyyy")</p>
+                                    <div class="content">
+                                        @item.Description
+                                        <a href="@item.AmpUrl" target="_blank">Read More</a>
+                                    </div>
+                                    <figure class="image">
+                                        @if (item.Image != null)
+                                        {
+                                             <img src="@item.Image.Thumbnail.ContentUrl?" alt="@item.Name">
+                                        }
+                                    </figure>
+                                </article>
+                            </div>
+                        </div>
+                        if (i % 3 == 0)
+                        {
+                        @:</div><div class="tile is-ancestor">
+                        }
+                        i++;
+                    }
+                </div>
+            </div>
+        </section>
+    </main>
+</div>

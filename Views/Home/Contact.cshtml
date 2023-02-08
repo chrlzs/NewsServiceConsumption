@@ -1,0 +1,72 @@
+﻿@model Covid.Models.ContactViewModel
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">@ViewData["Title"]</h1>
+        @if (ViewBag.Message == null)
+        {
+        <h2 class="subtitle">
+            We respect your privacy 100%, so the information that you provide will remain strictly confidential. Nevertheless, a copy of your message might be stored in our records as a database entry for archival purposes.
+        </h2>
+        <form method="post">
+            <div class="field">
+                <label asp-for="Name" class="label">Name</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input asp-for="Name" class="input" type="text" placeholder="Full Name">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <span asp-validation-for="Name" class="text-muted"></span>
+                </div>
+            </div>
+            <div class="field">
+                <label asp-for="Email" class="label">Email</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input asp-for="Email" class="input" type="email" placeholder="Email input">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <span asp-validation-for="Email" class="text-muted"></span>
+                </div>
+            </div>
+            <div class="field">
+                <label asp-for="Subject" class="label">Subject</label>
+                <div asp-for="Subject" class="control  has-icons-left has-icons-right">
+                    <input class="input" type="text" placeholder="Subject">
+                    <span asp-validation-for="Subject" class="text-muted"></span>
+                </div>
+            </div>
+            <div class="field">
+                <label asp-for="Message" class="label">Message</label>
+                <div class="control has-icons-left has-icons-right">
+                    <textarea asp-for="Message" class="textarea" placeholder="Textarea"></textarea>
+                    <span asp-validation-for="Message" class="text-muted"></span>
+                </div>
+            </div>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-link">Submit</button>
+                </div>
+                <div class="control">
+                    <button type="reset" class="button is-link is-light">Cancel</button>
+                </div>
+            </div>
+        </form>
+        }
+        @if (ViewBag.Message != null)
+        {
+        <section class="hero is-small hero-body">
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <h1 class="title">
+                        @ViewBag.Message
+                    </h1>
+                </div>
+            </div>
+        </section>
+        }
+    </div>
+</section>
